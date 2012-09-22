@@ -174,69 +174,69 @@ class TreeGA( popSize:Int,
 
       while(bits_out_tree.length > 0)
       {
-        var I_max = -1e9;
-        var Xadd = -1;
+        var I_max = -1e9
+        var Xadd = -1
         for (yy <- 0 until bits_out_tree.length)
         {
-          val inf=Info(bits_out_tree(yy),bestMatching(bits_out_tree(yy)));
+          val inf=Info(bits_out_tree(yy),bestMatching(bits_out_tree(yy)))
           if (inf>I_max)
           {
-            I_max=inf;
-            Xadd=yy;//warning, Xadd is the index inside bits_out_tree but the bit is bits_out_tree[Xadd]
+            I_max=inf
+            Xadd=yy//warning, Xadd is the index inside bits_out_tree but the bit is bits_out_tree[Xadd]
           }
         }
 
 
         val newChild =  bits_out_tree(Xadd)
-        val rootParent =   bestMatching(newChild);
+        val rootParent =   bestMatching(newChild)
         //adding Xadd into tree with bestmatchin[Xadd] as parent,removing Xadd from bits_out_tree,
-        tree .put   (newChild ,new Linkage(rootParent,new ListBuffer[Int]()));
+        tree .put   (newChild ,new Linkage(rootParent,new ListBuffer[Int]()))
 
         tree.get(rootParent).children += newChild
-        bits_out_tree.remove(Xadd);
+        bits_out_tree.remove(Xadd)
 
         //updating bestmathing vector with the new tree:
         for (yy <- 0 until bits_out_tree.length)
         {
-          val inf1=Info(bits_out_tree(yy),newChild);
-          val inf2=Info(bits_out_tree(yy),bestMatching(bits_out_tree(yy)));
-          if (inf1>inf2) {bestMatching(bits_out_tree(yy))=newChild;}
+          val inf1=Info(bits_out_tree(yy),newChild)
+          val inf2=Info(bits_out_tree(yy),bestMatching(bits_out_tree(yy)))
+          if (inf1>inf2) {bestMatching(bits_out_tree(yy))=newChild}
         }
     }//end while bits_out_tree.size>0
 
-    tree;
+    tree
   }
 
-  private def reCreatePopulation(tree:TreeData) = {
+  private def reCreatePopulation(tree:TreeData) {
 
-    var root = -1;
+    var root = -1
 
     tree.foreach( node =>
       {if(node._2.parent == -1)
-        root = node._1});
+        root = node._1})
 
     val rndGen = new Random()
        for (n <- 0 until popSize)
          {
 
 
-           val p = Array.fill(chromosomeLength)(-1);
+           val p = Array.fill(chromosomeLength)(-1)
 
 
            //creating binary chromosome numberOfIteration to be inserted in population
            //setting root bit:
 
-           val vref = (root + 1) % chromosomeLength;
-           val prob_bit=prob(root,1,vref);//randomVariable of root to be 1;
-           val prob_aux= rndGen.nextDouble();//rand value between 0 and 1;
-           if (prob_aux<=prob_bit) {p(root)=1;}
-           else {p(root)=0;};
+           val vref = (root + 1) % chromosomeLength
+           val prob_bit=prob(root,1,vref)//randomVariable of root to be 1;
+           val prob_aux= rndGen.nextDouble()//rand value between 0 and 1;
+           if (prob_aux<=prob_bit) {p(root)=1}
+           else {p(root)=0}
 
 
-           transverseTree(tree,root,p);
+           transverseTree(tree,root,p)
            //INSERTING IN POPULATION:
 
-           storage.setChromosomeI(n,p);
+           storage.setChromosomeI(n,p)
            storage.setFitness(n,-1)
 
 
@@ -247,18 +247,18 @@ class TreeGA( popSize:Int,
 
   }
 
-  def transverseTree(tree:TreeData,m:Int,p:Array[Int]):Unit={
+  def transverseTree(tree:TreeData,m:Int,p:Array[Int]){
 
     if (tree.get(m).children.length > 0){
        val rndGen = new Random()
        tree.get(m).children.foreach(
                 k => {
-                       val prob_aux= rndGen.nextDouble();//rand value between 0 and 1;
-                       val prob_bit=prob(k,1,tree(k).parent,p(tree(k).parent));//conditional randomVariable p(xi/parent(xi))
-                       if (prob_aux<=prob_bit) {p(k)=1;}
-                       else{p(k)=0;}
+                       val prob_aux= rndGen.nextDouble()//rand value between 0 and 1;
+                       val prob_bit=prob(k,1,tree(k).parent,p(tree(k).parent))//conditional randomVariable p(xi/parent(xi))
+                       if (prob_aux<=prob_bit) {p(k)=1}
+                       else{p(k)=0}
 
-                       transverseTree(tree,k,p);
+                       transverseTree(tree,k,p)
                      })
     }
 
@@ -321,16 +321,16 @@ class TreeGA( popSize:Int,
       if (doMutation){
 
 
-            var nMutations = mutationProb*popSize;
+            var nMutations = mutationProb*popSize
             if (nMutations<1)
-              nMutations=1;
+              nMutations=1
             else if (nMutations>popSize){
-              nMutations=popSize;
+              nMutations=popSize
             }
             for (m <- 0.until(nMutations.toInt)){
 
               val index = rndGen.nextDouble()* popSize.toDouble
-              this.storage.population(index.toInt).chr.mutate();
+              this.storage.population(index.toInt).chr.mutate()
 
             }
 
@@ -341,7 +341,7 @@ class TreeGA( popSize:Int,
 
     }
     catch {
-      case _ => false;
+      case e:Exception => false;
     }
 
 
@@ -349,63 +349,18 @@ class TreeGA( popSize:Int,
 
   def func2(x:popPair[Chromosome]):popPair[Chromosome] = {
                      var f = pFunc(x.chr.getValue())
-                      var key = x.chr.copy;
+                      var key = x.chr.copy();
                        popPair(key,f);
                      }
 
- class Worker extends Actor {
-            def act() { Actor.loop { react {
-              case s: popPair[Chromosome] => reply(func2(s))
-              case _ => {println("exiting");
-                        exit()}
-            }}}
-          }
 
-   val workers = new ListBuffer[Actor]();
-   for (i <- 0 until popSize)
-     workers += new Worker().start();
   /**
    * Computes the fitness for all the members of the population and returns the best elitism items
    */
-  private def ComputeFitness():Option[Array[popPair[Chromosome]]]={
+  private def ComputeFitness{
 
-    try{
-
-
-
-
-
-
-          val futures = for ((w,a) <- workers zip storage.population ) yield  w !! a
-
-          storage.population = futures.map(f => f() match {
-              case i: popPair[Chromosome] => i
-              case _ => throw new Exception("Whoops--didn't expect to get that!")
-            }).toArray
-
-
-
-
-
-
-
-//           storage.population = storage.population.seq.map(x => {
-//             var f = pFunc(x.chr.getValue());
-//             var key = x.chr.copy;
-//             popPair.create(key,f);
-//
-//           }).seq .toArray
-
-    if (bestVector.forall(x => x !=null))
-    {
-         Some(bestVector)
-    }
-    else
-      None
-    }
-    catch{
-      case _=>  None
-    }
+      val newPopulation = storage.population.toSeq.par.map(item => func2(item))
+      storage.population = newPopulation.toArray
 
   }
 
@@ -427,7 +382,7 @@ class TreeGA( popSize:Int,
   override def next():Boolean={
     if (iterations==0)
     {
-      ComputeFitness()
+      ComputeFitness
       fillBestVector()
     };
 
@@ -439,44 +394,14 @@ class TreeGA( popSize:Int,
         val tree = buildDependencyTree(root)
         reCreatePopulation(tree)
         mutation(true)
-        val r = ComputeFitness()
+        ComputeFitness
         fillBestVector();
         replace_worst(bestVector)
 
        ActualizeTree
 
 
-//       val v1 = Array(8.3137d);
-//       storage.setChromosomeI(0,v1);
-//       val v2 = storage.getValue(0);
-//       if (v1(0)!=v2(0)){
-//         val a=1.0;
-//       }
 
-
-
-//       var counter= 0d;
-//       for (i <- 0 until popSize if (counter < popSize* 0.8))
-//       {
-//
-//         counter = 0
-//         for (j <- 0 until popSize){
-//           if(storage.population(i).chr == storage.population(j).chr)
-//             counter += 1d
-//         }
-//
-//
-//
-//       }
-////       println(iterations.toString()+"=")
-////
-////       println (storage.toString())
-////
-////       println("--------------------------------------------------------")
-//
-//        if (counter > popSize* 0.9)
-//           false;
-//        else
           true
      }
      catch{
