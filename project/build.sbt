@@ -9,13 +9,8 @@ resolvers += Resolver.url("sbt-plugin-releases", new URL("http://scalasbt.artifa
 
 resolvers += "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
 
-resolvers += "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
-
-resolvers += Resolver.url("sbt-plugin-releases", new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases/"))(Resolver.ivyStylePatterns)
-
 resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 
-resolvers += "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
 
 //addSbtPlugin("org.specs2" % "specs2_2.9.2" % "1.11" % "test")
 

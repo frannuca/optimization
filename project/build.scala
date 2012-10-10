@@ -37,7 +37,7 @@ object PythiaBuild extends Build {
    * top layer  pythia
    */
   lazy val pythia = Project (
-    "nurbs",
+    "optimization",
     file ("."),
     settings = buildSettings++ Seq (resolvers :=  Seq(), libraryDependencies ++=Seq())
 
