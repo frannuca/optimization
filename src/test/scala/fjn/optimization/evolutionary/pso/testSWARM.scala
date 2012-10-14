@@ -7,7 +7,7 @@ object testSWARM {
 
     val swarm = new SwarmGA(localfitness, 5, 10, List(-10d, -10d,-10d,-10d).toArray, List(10d, 10d,10d,10d).toArray, 0.00, 0.5, 0.25, 0.25)
 
-    for (i <- 0 until 100) {
+    for (i <- 0 until 1000) {
       swarm.next();
     }
 
