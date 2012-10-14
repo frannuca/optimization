@@ -34,10 +34,11 @@ object testOperators extends App{
 
   val x1 = new Matrix[Double](2,1)<=Seq(0.75,-0.25)
 
-  val taylor1 = fTaylor(x1)
+  val taylor1 = fTaylor(x1)(0,0)
   val actual1 = f(x1)
   println("taylor = "+ taylor1)
   println ("actual = "+ actual1)
+  require(math.abs((taylor1-actual1))<1e-4)
 
 
 }
