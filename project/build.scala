@@ -25,7 +25,7 @@ object Resolvers {
 
 object Dependencies {
 
-
+     val matrixdep = "org.fjn"%"matrix_2.9.2"%"1.0.0"
 }
 
 object PythiaBuild extends Build {
@@ -36,10 +36,10 @@ object PythiaBuild extends Build {
   /**
    * top layer  pythia
    */
-  lazy val pythia = Project (
+  lazy val optimizationPrj = Project (
     "optimization",
     file ("."),
-    settings = buildSettings++ Seq (resolvers :=  Seq(), libraryDependencies ++=Seq())
+    settings = buildSettings++ Seq (resolvers :=  Seq(), libraryDependencies ++=Seq(matrixdep))
 
   ) //aggregate (optimizer,ia, fjn.fjn.fjn.pythia.pricers)
 
