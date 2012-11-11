@@ -2,7 +2,7 @@ package fjn.optimization.gradient.nonLineal
 
 import org.fjn.matrix.Matrix
 import scala.math
-import fjn.optimization.gradient.differentiation.{Operators, DifferentialOperators}
+import fjn.optimization.gradient.differentiation.{DifferentialOpsFactory, DifferentialOperators}
 import collection.mutable
 import org.fjn.matrix.Matrix
 
@@ -71,7 +71,7 @@ trait QuasiNewton  extends evaluationRegistry{
   val pFunc:(Matrix[Double])=>Double
   val tolerance:Seq[Double]
 
-  val ops= Operators(evaluate _ ,tolerance)
+  val ops= DifferentialOpsFactory(evaluate _ ,tolerance)
 
   def ++(nIter:Int) : Matrix[Double]={
 

@@ -46,7 +46,7 @@ trait DifferentialOperators{
 
   }
 }
-object Operators {
+object DifferentialOpsFactory {
 
 
   def apply(ff:(Matrix[Double])=>Double,dtol:Seq[Double]):DifferentialOperators={

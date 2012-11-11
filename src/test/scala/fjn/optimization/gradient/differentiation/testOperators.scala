@@ -10,7 +10,7 @@ object testOperators extends App{
     m(0,0)
     2.0*x(0,0)*x(0,0)+3.0*x(1,0)*x(1,0)
   }
-  val ops = Operators(f _,Seq(1e-5,1e-5))
+  val ops = DifferentialOpsFactory(f _,Seq(1e-5,1e-5))
 
   val x0 = new Matrix[Double](2,1)
   x0 <= Seq(1.0,1.0)
