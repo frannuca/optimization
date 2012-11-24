@@ -7,7 +7,7 @@ import Keys._
 object BuildSettings {
 
 
-  val buildOrganization = "org.fjn"
+  val buildOrganization = "org.org.fjn"
   val buildVersion      = "1.0.0"
   val buildScalaVersion = "2.9.2"
 
@@ -25,7 +25,7 @@ object Resolvers {
 
 object Dependencies {
 
-     val matrixdep = "org.fjn"%"matrix_2.9.2"%"1.0.0"
+     val matrixdep = "org.org.fjn"%"matrix_2.9.2"%"1.0.0"
 }
 
 object PythiaBuild extends Build {
@@ -41,7 +41,7 @@ object PythiaBuild extends Build {
     file ("."),
     settings = buildSettings++ Seq (resolvers :=  Seq(), libraryDependencies ++=Seq(matrixdep))
 
-  ) //aggregate (optimizer,ia, fjn.fjn.fjn.pythia.pricers)
+  ) //aggregate (optimizer,ia, org.fjn.org.fjn.org.fjn.pythia.pricers)
 
 
 
