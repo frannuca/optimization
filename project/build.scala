@@ -7,7 +7,7 @@ import Keys._
 object BuildSettings {
 
 
-  val buildOrganization = "org.org.fjn"
+  val buildOrganization = "org.fjn"
   val buildVersion      = "1.0.0"
   val buildScalaVersion = "2.9.2"
 
@@ -25,7 +25,7 @@ object Resolvers {
 
 object Dependencies {
 
-     val matrixdep = "org.org.fjn"%"matrix_2.9.2"%"1.0.0"
+     val matrixdep = "org.fjn" % "matrix_2.9.2" % "1.0.0"
 }
 
 object PythiaBuild extends Build {
