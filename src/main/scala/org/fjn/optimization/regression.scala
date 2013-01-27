@@ -3,17 +3,17 @@ package org.fjn.optimization
 import org.fjn.matrix.Matrix
 
 case class Regression(order:Int) {
-  def getRegressionCoefficients(v:Seq[Double]):Seq[Double]={
+  def getRegressionCoefficients(points:Seq[(Double,Double)]):Seq[Double]={
 
-    val Y  = (new Matrix[Double](v.size,1) <= v)
+    val Y  = (new Matrix[Double](points.size,1) <= points.map(_._2))
 
-    val X = new Matrix[Double](v.size,order+1)
+    val X = new Matrix[Double](points.size,order+1)
     for {
-      i <- 0 until v.size;
+      i <- 0 until points.size;
       j <- 0 to order
     }{
 
-      X.set(i,j,math.pow(i.toDouble,j))
+      X.set(i,j,math.pow(points(i)._1,j))
 
     }
 
