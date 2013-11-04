@@ -1,5 +1,5 @@
 
-scalaVersion := "2.9.2"
+//scalaVersion := "2.10.3"
 
 resolvers += "releases"  at "http://oss.sonatype.org/content/repositories/releases"
 
@@ -16,5 +16,5 @@ resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositori
 
 //addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.1.0")
 
-addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.2.0-SNAPSHOT")
+addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0-SNAPSHOT")
 

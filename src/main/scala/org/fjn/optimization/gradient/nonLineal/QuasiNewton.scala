@@ -1,7 +1,5 @@
 package org.fjn.optimization.gradient.nonLineal
 
-import org.fjn.matrix.Matrix
-import scala.math
 import org.fjn.optimization.gradient.differentiation.{DifferentialOpsFactory, DifferentialOperators}
 import collection.mutable
 import org.fjn.matrix.Matrix
@@ -46,20 +44,30 @@ trait BFGSQNUpdate extends QNUpdate{
 
 
 trait evaluationRegistry{
-  private val evaluations =  mutable.Map[Matrix[Double],Double]()
+  private val evaluations =  new mutable.ListBuffer[(Matrix[Double],Double)]()
   val pFunc:((Matrix[Double])=>Double)
 
   def clearEvaluations{
     evaluations.clear()
   }
 
-  def evaluate(x:Matrix[Double]):Double={
 
-       evaluations.get(x) match{
-         case None => {evaluations += (x -> pFunc(x));evaluations.get(x).get;}
-         case Some(v) => v
-       }
+  def evaluate(x:Matrix[Double])(implicit tol:Double=1e-3):Double={
 
+
+//    evaluations.collect{
+//      case  y:(Matrix[Double],Double)  if ((x * y._1.transpose).getArray().head < tol) => ((x * y._1.transpose).getArray().head,y._2)
+//    }
+//     .map(_.asInstanceOf[(Double,Double)]).toSeq
+//      match{
+//        case Seq()=>
+//          val a = (x,pFunc(x))
+//          evaluations += a
+//          evaluations.last._2
+//        case s => s.minBy(_._1)._2
+//      }
+
+    pFunc(x)
   }
 }
 trait QuasiNewton  extends evaluationRegistry{
@@ -71,7 +79,7 @@ trait QuasiNewton  extends evaluationRegistry{
   val pFunc:(Matrix[Double])=>Double
   val tolerance:Seq[Double]
 
-  val ops= DifferentialOpsFactory(evaluate _ ,tolerance)
+  val ops= DifferentialOpsFactory(evaluate(_) ,tolerance)
 
   def ++(nIter:Int) : Matrix[Double]={
 

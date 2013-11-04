@@ -9,7 +9,7 @@ object BuildSettings {
 
   val buildOrganization = "org.fjn"
   val buildVersion      = "1.0.0"
-  val buildScalaVersion = "2.9.2"
+  val buildScalaVersion = "2.10.3"
 
   val buildSettings = Defaults.defaultSettings ++ Seq (
     organization := buildOrganization,
@@ -25,7 +25,7 @@ object Resolvers {
 
 object Dependencies {
 
-     val matrixdep = "org.fjn" % "matrix_2.9.2" % "1.0.0"
+     val matrixdep = "org.fjn" %"matrix_2.10" % "1.0.0"
 }
 
 object PythiaBuild extends Build {

@@ -130,7 +130,7 @@ class SwarmPop(numberOfCluster: Int, numberOfParticlesPerCluster: Int, minLimit:
         true
       }
       catch {
-        case _ => false;
+        case _:Throwable => false;
       }
     }
     else false

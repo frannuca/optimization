@@ -136,7 +136,7 @@ case class Chromosome(nBits: Array[Int], minLevelArray: Array[Double],maxLevelAr
       chromosome.map(g => g.getValue());
     }
     catch {
-      case _ => null
+      case _:Throwable => null
     }
   }
 
@@ -164,7 +164,7 @@ case class Chromosome(nBits: Array[Int], minLevelArray: Array[Double],maxLevelAr
     try {
       chromosome.map(g => g.getBits()).flatMap(x => x);
     } catch {
-      case _ => null
+      case _:Throwable => null
     }
   }
 

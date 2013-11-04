@@ -8,7 +8,7 @@ import util.Random
 import scala.{Array, Double}
 import collection.JavaConversions._
 import java.util.HashMap
-import actors.Actor
+
 
 
 class TreeGA( popSize:Int,

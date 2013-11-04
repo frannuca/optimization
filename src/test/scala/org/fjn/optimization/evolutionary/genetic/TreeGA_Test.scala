@@ -7,9 +7,9 @@ object TreeGA_Test  {
 
     def main(args:Array[String]) {
       val popSize = 100;
-      val elitismFactor = 0.25;
+      val elitismFactor = 0.35;
       val nBits = Array (18, 18, 18, 18);
-      val minLevel = Array (- 10d, -10d, -10d, - 10d)
+      val minLevel = Array (- 100d, -100d, -100d, - 100d)
       val maxLevel = Array (10d, 10d, 10d, 10d)
       def pFunc(x: Array[Double]): Double = {
 
